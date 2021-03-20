@@ -13,8 +13,8 @@ function setup() {
 
 function draw() {
   tick++;
-  background(80, 50, 180);
-  fill(190, 50, 180);
+  background(30, 50, 80);
+  fill(190, 250, 180);
 
   for (var i = 0; i < count; i++) {
     for (var j = 0; j < count; j++) {
@@ -22,8 +22,7 @@ function draw() {
       lx = lerp(tx, tx + gap / 2, sin((tick + i + j * 6) / 7.0) / 2);
       ty = start + j * gap;
       ly = lerp(ty, ty + gap / 2, cos((tick + i * 9 + j) / 5.0) / 2);
-
-      rect(lx, ly, 50, 50);
+      ellipse(lx, ly, 50, 50);
     }
   }
 }
