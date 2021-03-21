@@ -1,16 +1,16 @@
 var count = 5;
-var side = 400;
+var side = 800;
 var gap = side / count;
 var start = gap / 2;
 var xoff = 1.0;
 var yoff = 310.0;
-var rad = 100.0;
+var rad = 200.0;
 
 function setup() {
-  colormode(hsl, 100);
-  framerate(30);
-  rectmode(center);
-  createcanvas(side, side);
+  colorMode(HSL, 100);
+  frameRate(30);
+  rectMode(CENTER);
+  createCanvas(side, side);
 }
 
 function draw() {
