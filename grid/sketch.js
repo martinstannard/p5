@@ -1,4 +1,4 @@
-var count = 8;
+var count = 16;
 var side = 800;
 var tick = 0;
 var gap = side / count;
@@ -13,8 +13,8 @@ function setup() {
 
 function draw() {
   tick++;
-  background(30, 50, 80);
-  fill(190, 250, 180);
+  background(70);
+  fill(120, 150, 230);
 
   for (var i = 0; i < count; i++) {
     for (var j = 0; j < count; j++) {
@@ -22,7 +22,7 @@ function draw() {
       lx = lerp(tx, tx + gap / 2, sin((tick + i + j * 6) / 7.0) / 2);
       ty = start + j * gap;
       ly = lerp(ty, ty + gap / 2, cos((tick + i * 9 + j) / 5.0) / 2);
-      ellipse(lx, ly, 50, 50);
+      ellipse(lx, ly, 20, 20);
     }
   }
 }
