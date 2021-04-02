@@ -1,0 +1,33 @@
+var count = 5;
+var side = 400;
+var centre = side / 2;
+var radius = 350;
+var gap = 20;
+
+function setup() {
+  colorMode(RGB, 100);
+  createCanvas(side, side);
+  noFill();
+  stroke(0, 0, 100);
+  strokeWeight(4);
+  tick = 0.0;
+}
+
+function draw() {
+  background(100, 0, 0);
+  x = centre + (cos(-tick * 2) * 20);
+  y = centre + (sin(tick) * 20);
+  stroke(100, 100, 0);
+  concentric(x, y);
+  x = centre + (-cos(tick) * 20);
+  y = centre + (sin(tick * 2) * 20);
+  stroke(0, 0, 100);
+  concentric(x, y);
+  tick += 0.01;
+}
+
+function concentric(x, y) {
+  for (let r = radius; r > 0; r -= gap) {
+    ellipse(x, y, r, r);
+  }
+}

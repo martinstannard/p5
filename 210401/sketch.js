@@ -2,7 +2,7 @@ var count = 5;
 var side = 800;
 var gap = side / count;
 var start = gap / 2;
-var jump = gap / 16;
+var jump = gap / 12;
 
 function setup() {
   colorMode(RGB, 100);
