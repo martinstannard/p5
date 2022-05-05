@@ -4,8 +4,8 @@ var tick = 0.0;
 
 function setup() {
   createCanvas(side, side);
-  stroke(100, 230, 60, 50);
-  strokeWeight(5);
+  stroke(100, 230, 160, 150);
+  strokeWeight(15);
 }
 
 function draw() {
