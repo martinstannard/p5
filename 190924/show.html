@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+        .thumbnail:hover {
+            transform: scale(3);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Gallery</h1>
+    <div class="gallery">
+        <script>
+            for (let i = 1; i <= 100; i++) {
+                const paddedNumber = i.toString().padStart(3, '0');
+                document.write(`
+                    <a href="tiling_${paddedNumber}.png" target="_blank">
+                        <img src="tiling_${paddedNumber}.png" alt="Grid ${i+1}" class="thumbnail">
+                    </a>
+                `);
+            }
+        </script>
+    </div>
+</body>
+</html>
