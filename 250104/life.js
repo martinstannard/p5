@@ -1,15 +1,18 @@
-const CELL_SIZE = 20;
-const GRID_WIDTH = 40;
-const GRID_HEIGHT = 30;
+let cellSize = 20;
+let gridWidth;
+let gridHeight;
+const CANVAS_WIDTH = 800;  // 40 * 20
+const CANVAS_HEIGHT = 600; // 30 * 20
 
 let grid;
 let nextGrid;
 let playing = false;
 
 function setup() {
-    createCanvas(GRID_WIDTH * CELL_SIZE, GRID_HEIGHT * CELL_SIZE);
-    grid = create2DArray(GRID_WIDTH, GRID_HEIGHT);
-    nextGrid = create2DArray(GRID_WIDTH, GRID_HEIGHT);
+    createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+    updateGridDimensions();
+    grid = create2DArray(gridWidth, gridHeight);
+    nextGrid = create2DArray(gridWidth, gridHeight);
     randomize();
     frameRate(10);
 }
@@ -18,12 +21,12 @@ function draw() {
     background(50);
     
     // Draw current state
-    for (let i = 0; i < GRID_WIDTH; i++) {
-        for (let j = 0; j < GRID_HEIGHT; j++) {
+    for (let i = 0; i < gridWidth; i++) {
+        for (let j = 0; j < gridHeight; j++) {
             if (grid[i][j] === 1) {
                 fill(255);
                 stroke(40);
-                rect(i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                rect(i * cellSize, j * cellSize, cellSize, cellSize);
             }
         }
     }
@@ -34,12 +37,17 @@ function draw() {
 }
 
 function mousePressed() {
-    const i = floor(mouseX / CELL_SIZE);
-    const j = floor(mouseY / CELL_SIZE);
+    const i = floor(mouseX / cellSize);
+    const j = floor(mouseY / cellSize);
     
-    if (i >= 0 && i < GRID_WIDTH && j >= 0 && j < GRID_HEIGHT) {
+    if (i >= 0 && i < gridWidth && j >= 0 && j < gridHeight) {
         grid[i][j] = grid[i][j] === 1 ? 0 : 1;
     }
+}
+
+function updateGridDimensions() {
+    gridWidth = floor(CANVAS_WIDTH / cellSize);
+    gridHeight = floor(CANVAS_HEIGHT / cellSize);
 }
 
 function keyPressed() {
@@ -49,6 +57,18 @@ function keyPressed() {
         randomize();
     } else if (key === 'c') {
         clear();
+    } else if (key === '+' || key === '=') {
+        cellSize = max(5, cellSize - 2);
+        updateGridDimensions();
+        grid = create2DArray(gridWidth, gridHeight);
+        nextGrid = create2DArray(gridWidth, gridHeight);
+        randomize();
+    } else if (key === '-' || key === '_') {
+        cellSize = min(50, cellSize + 2);
+        updateGridDimensions();
+        grid = create2DArray(gridWidth, gridHeight);
+        nextGrid = create2DArray(gridWidth, gridHeight);
+        randomize();
     }
 }
 
@@ -61,16 +81,16 @@ function create2DArray(cols, rows) {
 }
 
 function randomize() {
-    for (let i = 0; i < GRID_WIDTH; i++) {
-        for (let j = 0; j < GRID_HEIGHT; j++) {
+    for (let i = 0; i < gridWidth; i++) {
+        for (let j = 0; j < gridHeight; j++) {
             grid[i][j] = random() > 0.8 ? 1 : 0;
         }
     }
 }
 
 function clear() {
-    for (let i = 0; i < GRID_WIDTH; i++) {
-        for (let j = 0; j < GRID_HEIGHT; j++) {
+    for (let i = 0; i < gridWidth; i++) {
+        for (let j = 0; j < gridHeight; j++) {
             grid[i][j] = 0;
         }
     }
@@ -81,8 +101,8 @@ function countNeighbors(x, y) {
     let sum = 0;
     for (let i = -1; i < 2; i++) {
         for (let j = -1; j < 2; j++) {
-            let col = (x + i + GRID_WIDTH) % GRID_WIDTH;
-            let row = (y + j + GRID_HEIGHT) % GRID_HEIGHT;
+            let col = (x + i + gridWidth) % gridWidth;
+            let row = (y + j + gridHeight) % gridHeight;
             sum += grid[col][row];
         }
     }
@@ -92,8 +112,8 @@ function countNeighbors(x, y) {
 
 function computeNextGeneration() {
     // Compute next generation
-    for (let i = 0; i < GRID_WIDTH; i++) {
-        for (let j = 0; j < GRID_HEIGHT; j++) {
+    for (let i = 0; i < gridWidth; i++) {
+        for (let j = 0; j < gridHeight; j++) {
             let neighbors = countNeighbors(i, j);
             let state = grid[i][j];
             
