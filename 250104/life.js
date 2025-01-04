@@ -35,6 +35,14 @@ function draw() {
     if (playing) {
         computeNextGeneration();
     }
+
+    // Draw UI overlay
+    fill(0, 150, 255);
+    noStroke();
+    textAlign(LEFT, TOP);
+    textSize(16);
+    text(`Cell Size: ${cellSize}px`, 10, 10);
+    text(`Speed: ${gameSpeed} FPS`, 10, 30);
 }
 
 function mousePressed() {
