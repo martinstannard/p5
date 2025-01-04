@@ -26,8 +26,8 @@ function draw() {
         for (let j = 0; j < gridHeight; j++) {
             if (grid[i][j] === 1) {
                 fill(255);
-                stroke(40);
-                rect(i * cellSize, j * cellSize, cellSize, cellSize);
+                noStroke();
+                rect(i * cellSize, j * cellSize, cellSize - 1, cellSize - 1);
             }
         }
     }
