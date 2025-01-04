@@ -7,6 +7,7 @@ const CANVAS_HEIGHT = 600; // 30 * 20
 let grid;
 let nextGrid;
 let playing = false;
+let gameSpeed = 10;  // frames per second
 
 function setup() {
     createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -14,7 +15,7 @@ function setup() {
     grid = create2DArray(gridWidth, gridHeight);
     nextGrid = create2DArray(gridWidth, gridHeight);
     randomize();
-    frameRate(10);
+    frameRate(gameSpeed);
 }
 
 function draw() {
@@ -69,6 +70,12 @@ function keyPressed() {
         grid = create2DArray(gridWidth, gridHeight);
         nextGrid = create2DArray(gridWidth, gridHeight);
         randomize();
+    } else if (keyCode === RIGHT_ARROW) {
+        gameSpeed = min(60, gameSpeed + 5);
+        frameRate(gameSpeed);
+    } else if (keyCode === LEFT_ARROW) {
+        gameSpeed = max(1, gameSpeed - 5);
+        frameRate(gameSpeed);
     }
 }
 
