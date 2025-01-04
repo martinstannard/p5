@@ -59,7 +59,7 @@ function keyPressed() {
     } else if (key === 'c') {
         clear();
     } else if (key === '+' || key === '=') {
-        cellSize = max(5, cellSize - 2);
+        cellSize = max(1, cellSize - 2);
         updateGridDimensions();
         grid = create2DArray(gridWidth, gridHeight);
         nextGrid = create2DArray(gridWidth, gridHeight);
