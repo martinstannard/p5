@@ -27,7 +27,7 @@ function draw() {
             if (grid[i][j] === 1) {
                 fill(255);
                 noStroke();
-                rect(i * cellSize, j * cellSize, cellSize - 1, cellSize - 1);
+                rect(i * cellSize, j * cellSize, cellSize, cellSize);
             }
         }
     }
