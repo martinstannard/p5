@@ -7,11 +7,17 @@ let colors = ['#e6302b', '#fd7800', '#fbd400', '#1b98e0', '#F0F0FC'];
 function setup() {
 	createCanvas(900, 900);
 	rectMode(CENTER);
-	for (let i = 0; i < 200; i++) {
-		let x = random(width);
-		let y = random(width);
-		let l = 0.03 * width;
-		objs.push(new Walker(x, y, l));
+	const gridSize = 15; // Number of objects per row/column
+	const spacing = width / gridSize;
+	const offset = spacing / 2;
+	
+	for (let i = 0; i < gridSize; i++) {
+		for (let j = 0; j < gridSize; j++) {
+			let x = offset + i * spacing;
+			let y = offset + j * spacing;
+			let l = 0.03 * width;
+			objs.push(new Walker(x, y, l));
+		}
 	}
 }
 
