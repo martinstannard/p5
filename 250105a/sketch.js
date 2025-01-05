@@ -46,9 +46,10 @@ function draw() {
   });
   
   // Display overlay text
-  fill(255);
+  fill(0);
   noStroke();
   textSize(16);
+  textStyle(BOLD);
   textAlign(LEFT, TOP);
   text(`Rotation Interval: ${rotationInterval}ms`, 10, 10);
   text(`Rotation Percentage: ${rotationPercentage}%`, 10, 30);
