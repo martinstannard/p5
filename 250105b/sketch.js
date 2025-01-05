@@ -68,7 +68,7 @@ class Particle {
           force = -1;
         } else {
           // Attraction/repulsion based on rules matrix
-          force = rules[this.typeIndex][TYPES.indexOf(other.type)];
+          force = rules[this.typeIndex][other.typeIndex];
           force *= (1 - d/MAX_R); // Force decreases with distance
         }
         
