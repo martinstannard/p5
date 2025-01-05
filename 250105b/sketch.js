@@ -8,9 +8,10 @@ const MAX_R = 50; // Maximum interaction radius
 
 // Attraction/repulsion matrix
 const rules = [
-  [1, -0.5, -0.5], // Red's attraction to: [red, green, blue]
-  [-0.5, 1, -0.5], // Green's attraction to: [red, green, blue]
-  [-0.5, -0.5, 1]  // Blue's attraction to: [red, green, blue]
+  [1, -0.5, -0.5, 0.3],    // Red's attraction to: [red, green, blue, yellow]
+  [-0.5, 1, -0.5, 0.3],    // Green's attraction to: [red, green, blue, yellow]
+  [-0.5, -0.5, 1, 0.3],    // Blue's attraction to: [red, green, blue, yellow]
+  [0.3, 0.3, 0.3, -0.5]    // Yellow's attraction to: [red, green, blue, yellow]
 ];
 
 class Particle {
