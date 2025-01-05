@@ -90,7 +90,27 @@ class Walker {
 		this.keyFrame = int(50);
 		this.t = 0;
 		this.prevAng = this.ang;
-		this.targetAng = this.ang + int(random(4)) * (TAU / 4) * this.rotationDirection;
+		
+		// Calculate potential new position after rotation
+		let testAng = this.ang + (PI/2) * this.rotationDirection;
+		let nextX, nextY;
+		
+		if (this.toggle == 0) {
+			nextX = this.x1 + this.len * cos(testAng);
+			nextY = this.y1 + this.len * sin(testAng);
+		} else {
+			nextX = this.x2 + this.len * cos(testAng + PI);
+			nextY = this.y2 + this.len * sin(testAng + PI);
+		}
+		
+		// Check if the next position would be within canvas bounds
+		if (nextX >= 0 && nextX <= width && nextY >= 0 && nextY <= height) {
+			this.targetAng = testAng;
+		} else {
+			// Reverse direction if we would go out of bounds
+			this.rotationDirection *= -1;
+			this.targetAng = this.ang + (PI/2) * this.rotationDirection;
+		}
 	}
 
 	run() {
