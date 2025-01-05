@@ -59,8 +59,13 @@ function generateRules() {
   for (let i = 0; i < TYPES.length; i++) {
     newRules[i] = [];
     for (let j = 0; j < TYPES.length; j++) {
-      // Generate random values between -1 and 1
-      newRules[i][j] = random(-1, 1);
+      // Chance for rule to be zero
+      if (random() < opc.get('ZERO_CHANCE')) {
+        newRules[i][j] = 0;
+      } else {
+        // Generate random values between -1 and 1
+        newRules[i][j] = random(-1, 1);
+      }
     }
   }
   return newRules;
@@ -231,6 +236,7 @@ function setup() {
   opc.addSlider('FRICTION', 0.2, 1.0);
   opc.addSlider('MIN_R', 2, 40);
   opc.addSlider('MAX_R', 20, 100);
+  opc.addSlider('ZERO_CHANCE', 0, 1, 0.1);
   
   generateTypes();
   initializeSimulation();
@@ -263,6 +269,12 @@ function draw() {
   FRICTION = opc.get('FRICTION');
   MIN_R = opc.get('MIN_R');
   MAX_R = opc.get('MAX_R');
+  
+  // If zero chance changes, regenerate rules
+  if (opc.get('ZERO_CHANCE') !== opc.lastZeroChance) {
+    opc.lastZeroChance = opc.get('ZERO_CHANCE');
+    rules = generateRules();
+  }
   
   // Adjust particle count if needed
   while (particles.length < PARTICLE_COUNT) {
