@@ -7,16 +7,16 @@ let colors = ['#e6302b', '#fd7800', '#fbd400', '#1b98e0', '#F0F0FC'];
 function setup() {
 	createCanvas(900, 900);
 	rectMode(CENTER);
-	const gridSize = 15; // Number of objects per row/column
-	const spacing = width / gridSize;
-	const offset = spacing / 2;
+	const shapeLength = width * 0.06; // Length of each shape
+	const gridSize = 10; // Reduced number to fit properly
+	const spacing = shapeLength;
+	const margin = (width - (gridSize - 1) * spacing) / 2; // Center the grid
 	
 	for (let i = 0; i < gridSize; i++) {
 		for (let j = 0; j < gridSize; j++) {
-			let x = offset + i * spacing;
-			let y = offset + j * spacing;
-			let l = 0.03 * width;
-			objs.push(new Walker(x, y, l));
+			let x = margin + i * spacing;
+			let y = margin + j * spacing;
+			objs.push(new Walker(x, y, spacing));
 		}
 	}
 }
@@ -37,12 +37,12 @@ class Walker {
 		this.x1 = x;
 		this.y1 = y;
 		this.len = l;
-		this.ang = int(random(100)) * (PI / 2);
+		this.ang = int(random(4)) * (PI / 2); // Start aligned to grid
 		this.prevAng = this.ang;
 		this.x2 = this.x1 + this.len * cos(this.ang);
 		this.y2 = this.y1 + this.len * sin(this.ang);
-		this.d1 = width * 0.03;
-		this.d2 = width * 0.03;
+		this.d1 = this.len * 0.5; // Match circle size to grid
+		this.d2 = this.len * 0.5;
 		this.toggle = 0;
 		this.reset();
 		this.clr1 = random(colors);
