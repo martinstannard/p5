@@ -26,7 +26,14 @@ function randomizeParameters() {
 }
 
 function generateRandomColor() {
-  return color(random(255), random(255), random(255));
+  // Generate vibrant colors with good saturation and brightness
+  const h = random(360);  // Hue: 0-360
+  const s = random(60, 100);  // Saturation: 60-100%
+  const b = random(70, 100);  // Brightness: 70-100%
+  colorMode(HSB, 360, 100, 100);
+  const c = color(h, s, b);
+  colorMode(RGB, 255); // Switch back to RGB mode
+  return c;
 }
 
 function generateTypes() {
@@ -203,7 +210,9 @@ class Particle {
 }
 
 function setup() {
-  createCanvas(800, 800);
+  // Make canvas 80% of the smallest screen dimension
+  const size = min(windowWidth, windowHeight) * 0.8;
+  createCanvas(size, size);
   
   // Setup OPC controls
   opc.addSlider('NUM_TYPES', MIN_TYPES, MAX_TYPES, MIN_TYPES).controls['NUM_TYPES'].disabled = true;
