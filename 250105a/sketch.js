@@ -1,5 +1,4 @@
 let gridItems = [];
-const colors = ['#000000', '#FFFFFF', '#000000', '#FFFFFF'];
 const gridSize = 10;
 let rotationInterval = 1000; // Time between rotation checks in milliseconds
 let rotationPercentage = 5; // Percentage of items to rotate
@@ -120,20 +119,20 @@ class GridItem {
     // Draw four squares
     noStroke();
     
-    // Top-left
-    fill(colors[0]);
+    // Top-left (black)
+    fill('#000000');
     rect(-this.size/4, -this.size/4, this.squareSize, this.squareSize);
     
-    // Top-right
-    fill(colors[1]);
+    // Top-right (white)
+    fill('#FFFFFF');
     rect(this.size/4, -this.size/4, this.squareSize, this.squareSize);
     
-    // Bottom-left
-    fill(colors[2]);
+    // Bottom-left (white)
+    fill('#FFFFFF');
     rect(-this.size/4, this.size/4, this.squareSize, this.squareSize);
     
-    // Bottom-right
-    fill(colors[3]);
+    // Bottom-right (black)
+    fill('#000000');
     rect(this.size/4, this.size/4, this.squareSize, this.squareSize);
     
     pop();
