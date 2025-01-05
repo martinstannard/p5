@@ -1,5 +1,7 @@
 const PARTICLE_COUNT = 400;
-const TYPES = ['red', 'green', 'blue', 'yellow'];
+const MIN_TYPES = 3;
+const MAX_TYPES = 8;
+let TYPES = [];
 const particles = [];
 const G = 10; // Force multiplier
 const FRICTION = 0.85;
@@ -8,6 +10,18 @@ const MAX_R = 50; // Maximum interaction radius
 
 // Attraction/repulsion matrix
 let rules;
+
+function generateRandomColor() {
+  return color(random(255), random(255), random(255));
+}
+
+function generateTypes() {
+  TYPES = [];
+  const numTypes = floor(random(MIN_TYPES, MAX_TYPES + 1));
+  for (let i = 0; i < numTypes; i++) {
+    TYPES.push(generateRandomColor());
+  }
+}
 
 function generateRules() {
   let newRules = [];
@@ -35,8 +49,7 @@ class Particle {
     this.y = random(height);
     this.vx = 0;
     this.vy = 0;
-    this.type = random(TYPES);
-    this.typeIndex = TYPES.indexOf(this.type);
+    this.typeIndex = floor(random(TYPES.length));
   }
 
   update() {
@@ -80,18 +93,20 @@ class Particle {
 
   draw() {
     noStroke();
-    fill(this.type);
+    fill(TYPES[this.typeIndex]);
     circle(this.x, this.y, 4);
   }
 }
 
 function setup() {
   createCanvas(800, 800);
+  generateTypes();
   initializeSimulation();
 }
 
 function keyPressed() {
-  if (key === 'r' || key === 'R') {
+  if (key === ' ') {
+    generateTypes();
     initializeSimulation();
   }
 }
