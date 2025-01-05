@@ -1,5 +1,5 @@
-const MIN_TYPES = 3;
-const MAX_TYPES = 8;
+const MIN_TYPES = 6;
+const MAX_TYPES = 12;
 let TYPES = [];
 let particles = [];
 
