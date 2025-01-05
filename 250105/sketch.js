@@ -7,8 +7,8 @@ let colors = ['#e6302b', '#fd7800', '#fbd400', '#1b98e0', '#F0F0FC'];
 function setup() {
 	createCanvas(900, 900);
 	rectMode(CENTER);
-	const shapeLength = width * 0.06; // Length of each shape
-	const gridSize = 10; // Reduced number to fit properly
+	const shapeLength = width * 0.03; // Half the original length
+	const gridSize = 10; // Keep same number of shapes
 	const spacing = shapeLength;
 	const margin = (width - (gridSize - 1) * spacing) / 2; // Center the grid
 	
@@ -57,7 +57,7 @@ class Walker {
 		} else {
 
 		}
-		strokeWeight(width * 0.03);
+		strokeWeight(width * 0.015);
 		stroke(0);
 		line(this.x1, this.y1, this.x2, this.y2);
 		noStroke();
