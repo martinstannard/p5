@@ -7,8 +7,8 @@ let colors = ['#e6302b', '#fd7800', '#fbd400', '#1b98e0', '#F0F0FC'];
 function setup() {
 	createCanvas(900, 900);
 	rectMode(CENTER);
-	const shapeLength = width * 0.03; // Half the original length
-	const gridSize = 10; // Keep same number of shapes
+	const shapeLength = width * 0.03; // Keep the same shape size
+	const gridSize = 20; // Double the number of shapes in each direction
 	const spacing = shapeLength;
 	const margin = (width - (gridSize - 1) * spacing) / 2; // Center the grid
 	
