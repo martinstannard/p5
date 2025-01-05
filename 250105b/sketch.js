@@ -1,10 +1,10 @@
-const PARTICLE_COUNT = 200;
-const TYPES = ['red', 'green', 'blue'];
+const PARTICLE_COUNT = 400;
+const TYPES = ['red', 'green', 'blue', 'yellow'];
 const particles = [];
-const G = 100; // Force multiplier
+const G = 10; // Force multiplier
 const FRICTION = 0.85;
-const MIN_R = 20; // Minimum interaction radius
-const MAX_R = 100; // Maximum interaction radius
+const MIN_R = 10; // Minimum interaction radius
+const MAX_R = 50; // Maximum interaction radius
 
 // Attraction/repulsion matrix
 const rules = [
