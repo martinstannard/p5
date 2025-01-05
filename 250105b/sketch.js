@@ -126,6 +126,7 @@ function generateRules() {
       }
     }
   }
+  console.log('New rules matrix generated:', newRules);
   return newRules;
 }
 
@@ -331,6 +332,7 @@ function draw() {
   // If zero chance changes, regenerate rules
   if (opc.get('ZERO_CHANCE') !== opc.lastZeroChance) {
     opc.lastZeroChance = opc.get('ZERO_CHANCE');
+    console.log('Zero chance changed to:', opc.get('ZERO_CHANCE'));
     rules = generateRules();
   }
   
