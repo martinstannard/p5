@@ -3,20 +3,23 @@ const MAX_TYPES = 8;
 let TYPES = [];
 let particles = [];
 
-// These will be randomized on each restart
-let PARTICLE_COUNT;
-let G;           // Force multiplier
-let FRICTION;
-let MIN_R;       // Minimum interaction radius
-let MAX_R;       // Maximum interaction radius
+// These will be controlled by OPC
+let PARTICLE_COUNT = 300;
+let G = 10;           // Force multiplier
+let FRICTION = 0.85;
+let MIN_R = 10;       // Minimum interaction radius
+let MAX_R = 50;       // Maximum interaction radius
 let rules;
 
+// Initialize OPC
+const opc = new OPC(this);
+
 function randomizeParameters() {
-  PARTICLE_COUNT = floor(random(100, 501));
-  G = random(5, 15);
-  FRICTION = random(0.8, 0.95);
-  MIN_R = random(5, 15);
-  MAX_R = random(40, 60);
+  opc.set('PARTICLE_COUNT', floor(random(100, 501)));
+  opc.set('G', random(5, 15));
+  opc.set('FRICTION', random(0.8, 0.95));
+  opc.set('MIN_R', random(5, 15));
+  opc.set('MAX_R', random(40, 60));
 }
 
 function generateRandomColor() {
@@ -116,6 +119,14 @@ class Particle {
 
 function setup() {
   createCanvas(800, 800);
+  
+  // Setup OPC controls
+  opc.slider('PARTICLE_COUNT', 100, 500);
+  opc.slider('G', 5, 15);
+  opc.slider('FRICTION', 0.8, 0.95);
+  opc.slider('MIN_R', 5, 15);
+  opc.slider('MAX_R', 40, 60);
+  
   generateTypes();
   initializeSimulation();
 }
