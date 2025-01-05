@@ -25,22 +25,32 @@ function randomizeParameters() {
   opc.set('MAX_R', random(40, 100));
 }
 
-function generateRandomColor() {
-  // Generate vibrant colors with good saturation and brightness
-  const h = random(360);  // Hue: 0-360
-  const s = random(60, 100);  // Saturation: 60-100%
-  const b = random(70, 100);  // Brightness: 70-100%
-  colorMode(HSB, 360, 100, 100);
-  const c = color(h, s, b);
-  colorMode(RGB, 255); // Switch back to RGB mode
-  return c;
-}
-
 function generateTypes() {
   TYPES = [];
   const numTypes = floor(random(MIN_TYPES, MAX_TYPES + 1));
+  
+  // Select a random palette from our collection
+  const selectedPalette = random(PALETTES);
+  
+  // Generate colors for all types needed
   for (let i = 0; i < numTypes; i++) {
-    TYPES.push(generateRandomColor());
+    if (i < selectedPalette.length) {
+      // Use color directly from palette
+      TYPES.push(color(selectedPalette[i]));
+    } else {
+      // For additional colors needed, interpolate between existing palette colors
+      const idx1 = i % selectedPalette.length;
+      const idx2 = (i + 1) % selectedPalette.length;
+      const c1 = color(selectedPalette[idx1]);
+      const c2 = color(selectedPalette[idx2]);
+      const amt = (i - idx1) / (selectedPalette.length);
+      
+      // Interpolate in RGB space
+      const r = lerp(red(c1), red(c2), amt);
+      const g = lerp(green(c1), green(c2), amt);
+      const b = lerp(blue(c1), blue(c2), amt);
+      TYPES.push(color(r, g, b));
+    }
   }
 }
 
