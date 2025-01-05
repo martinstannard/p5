@@ -125,10 +125,10 @@ function setup() {
   
   // Setup OPC controls
   opc.addSlider('PARTICLE_COUNT', 100, 500);
-  opc.addSlider('G', 5, 15);
-  opc.addSlider('FRICTION', 0.8, 0.95);
-  opc.addSlider('MIN_R', 5, 15);
-  opc.addSlider('MAX_R', 40, 60);
+  opc.addSlider('G', 2, 20);
+  opc.addSlider('FRICTION', 0.2, 1.0);
+  opc.addSlider('MIN_R', 5, 40);
+  opc.addSlider('MAX_R', 40, 100);
   
   generateTypes();
   initializeSimulation();
