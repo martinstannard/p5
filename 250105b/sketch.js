@@ -144,6 +144,21 @@ function keyPressed() {
 function draw() {
   background(0, 20);
   
+  // Update simulation parameters from OPC
+  PARTICLE_COUNT = Math.floor(opc.get('PARTICLE_COUNT'));
+  G = opc.get('G');
+  FRICTION = opc.get('FRICTION');
+  MIN_R = opc.get('MIN_R');
+  MAX_R = opc.get('MAX_R');
+  
+  // Adjust particle count if needed
+  while (particles.length < PARTICLE_COUNT) {
+    particles.push(new Particle());
+  }
+  while (particles.length > PARTICLE_COUNT) {
+    particles.pop();
+  }
+  
   // Update and draw all particles
   for (let p of particles) {
     p.update();
