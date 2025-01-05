@@ -1,5 +1,5 @@
 let gridItems = [];
-const colors = ['#e6302b', '#fd7800', '#fbd400', '#1b98e0'];
+const colors = ['#000000', '#FFFFFF', '#000000', '#FFFFFF'];
 const gridSize = 10;
 let rotationInterval = 1000; // Time between rotation checks in milliseconds
 let rotationPercentage = 5; // Percentage of items to rotate
