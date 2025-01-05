@@ -18,7 +18,7 @@ function preload() {
 }
 
 function randomizeParameters() {
-  opc.set('PARTICLE_COUNT', floor(random(1000, 2501)));
+  opc.set('PARTICLE_COUNT', floor(random(400, 2501)));
   opc.set('G', random(2, 25));
   opc.set('FRICTION', random(0.2, 1.00));
   opc.set('MIN_R', random(2, 40));
