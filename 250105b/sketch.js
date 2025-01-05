@@ -49,13 +49,88 @@ function generateRules() {
   return newRules;
 }
 
-function initializeSimulation() {
-  randomizeParameters();
-  rules = generateRules();
-  particles = []; // Create new array instead of clearing
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Particle());
+function encodeSimulation() {
+  // Encode parameters
+  const params = new URLSearchParams();
+  params.set('pc', PARTICLE_COUNT);
+  params.set('g', G.toFixed(2));
+  params.set('f', FRICTION.toFixed(3));
+  params.set('minr', MIN_R.toFixed(1));
+  params.set('maxr', MAX_R.toFixed(1));
+  
+  // Encode colors
+  const colors = TYPES.map(c => `${red(c)},${green(c)},${blue(c)}`).join(';');
+  params.set('colors', colors);
+  
+  // Encode rules matrix
+  const rulesStr = rules.map(row => row.map(v => v.toFixed(3)).join(',')).join(';');
+  params.set('rules', rulesStr);
+  
+  // Update URL without reloading page
+  const newUrl = `${window.location.pathname}?${params.toString()}`;
+  window.history.pushState({}, '', newUrl);
+  
+  // Return the full URL for sharing
+  return window.location.href;
+}
+
+function decodeSimulation() {
+  const params = new URLSearchParams(window.location.search);
+  
+  if (params.has('pc')) {
+    // Load parameters
+    PARTICLE_COUNT = parseInt(params.get('pc'));
+    G = parseFloat(params.get('g'));
+    FRICTION = parseFloat(params.get('f'));
+    MIN_R = parseFloat(params.get('minr'));
+    MAX_R = parseFloat(params.get('maxr'));
+    
+    // Load colors
+    const colorStr = params.get('colors');
+    if (colorStr) {
+      TYPES = colorStr.split(';').map(c => {
+        const [r, g, b] = c.split(',').map(Number);
+        return color(r, g, b);
+      });
+    }
+    
+    // Load rules
+    const rulesStr = params.get('rules');
+    if (rulesStr) {
+      rules = rulesStr.split(';').map(row => 
+        row.split(',').map(v => parseFloat(v))
+      );
+    }
+    
+    // Update OPC controls
+    opc.set('PARTICLE_COUNT', PARTICLE_COUNT);
+    opc.set('G', G);
+    opc.set('FRICTION', FRICTION);
+    opc.set('MIN_R', MIN_R);
+    opc.set('MAX_R', MAX_R);
+    opc.set('NUM_TYPES', TYPES.length);
+    
+    // Create particles
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+    return true;
   }
+  return false;
+}
+
+function initializeSimulation() {
+  if (!decodeSimulation()) {
+    // If no URL parameters, generate random simulation
+    randomizeParameters();
+    rules = generateRules();
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+  }
+  
   // Add a display-only control for number of types
   opc.set('NUM_TYPES', TYPES.length);
   
@@ -66,6 +141,10 @@ function initializeSimulation() {
     Min radius: ${MIN_R.toFixed(1)}
     Max radius: ${MAX_R.toFixed(1)}
     Types: ${TYPES.length}`);
+    
+  // Generate shareable URL
+  const shareableUrl = encodeSimulation();
+  console.log('Shareable URL:', shareableUrl);
 }
 
 class Particle {
@@ -142,6 +221,11 @@ function keyPressed() {
   if (key === ' ') {
     generateTypes();
     initializeSimulation();
+  } else if (key === 'c' || key === 'C') {
+    const url = encodeSimulation();
+    navigator.clipboard.writeText(url).then(() => {
+      console.log('Shareable URL copied to clipboard!');
+    });
   }
 }
 
