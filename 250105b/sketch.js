@@ -7,12 +7,27 @@ const MIN_R = 10; // Minimum interaction radius
 const MAX_R = 50; // Maximum interaction radius
 
 // Attraction/repulsion matrix
-const rules = [
-  [1, -0.5, -0.5, 0.3],    // Red's attraction to: [red, green, blue, yellow]
-  [-0.5, 1, -0.5, 0.3],    // Green's attraction to: [red, green, blue, yellow]
-  [-0.5, -0.5, 1, 0.3],    // Blue's attraction to: [red, green, blue, yellow]
-  [0.3, 0.3, 0.3, -0.5]    // Yellow's attraction to: [red, green, blue, yellow]
-];
+let rules;
+
+function generateRules() {
+  let newRules = [];
+  for (let i = 0; i < TYPES.length; i++) {
+    newRules[i] = [];
+    for (let j = 0; j < TYPES.length; j++) {
+      // Generate random values between -1 and 1
+      newRules[i][j] = random(-1, 1);
+    }
+  }
+  return newRules;
+}
+
+function initializeSimulation() {
+  rules = generateRules();
+  particles.length = 0; // Clear existing particles
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(new Particle());
+  }
+}
 
 class Particle {
   constructor() {
@@ -72,10 +87,12 @@ class Particle {
 
 function setup() {
   createCanvas(800, 800);
-  
-  // Create particles
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push(new Particle());
+  initializeSimulation();
+}
+
+function keyPressed() {
+  if (key === 'r' || key === 'R') {
+    initializeSimulation();
   }
 }
 
