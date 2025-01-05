@@ -220,6 +220,7 @@ function setup() {
 function keyPressed() {
   if (key === ' ') {
     generateTypes();
+    rules = generateRules();
     initializeSimulation();
   } else if (key === 'c' || key === 'C') {
     const url = encodeSimulation();
