@@ -228,11 +228,14 @@ function setup() {
 
 function keyPressed() {
   if (key === ' ') {
+    // Clear URL parameters first
+    window.history.pushState({}, '', window.location.pathname);
+    
+    // Generate new simulation
     TYPES = []; // Clear existing types
     generateTypes(); // Generate new types with new colors
     rules = generateRules();
     initializeSimulation();
-    encodeSimulation(); // Update URL with new parameters
   } else if (key === 'c' || key === 'C') {
     const url = encodeSimulation();
     navigator.clipboard.writeText(url).then(() => {
