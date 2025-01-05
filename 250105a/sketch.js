@@ -77,11 +77,14 @@ class GridItem {
   
   display() {
     push();
-    // Create clipping region for this grid cell
-    clip(this.x, this.y, this.size, this.size);
-    
-    // Move to center of grid cell
+    // Move to center of grid cell and create clipping region
     translate(this.x + this.size/2, this.y + this.size/2);
+    beginShape();
+    vertex(-this.size/2, -this.size/2);
+    vertex(this.size/2, -this.size/2);
+    vertex(this.size/2, this.size/2);
+    vertex(-this.size/2, this.size/2);
+    endShape(CLOSE);
     rotate(this.rotation);
     
     // Draw four squares
@@ -102,6 +105,12 @@ class GridItem {
     // Bottom-right
     fill(colors[3]);
     rect(this.size/4, this.size/4, this.squareSize, this.squareSize);
+    
+    // Debug: Draw cell border
+    noFill();
+    stroke(200);
+    strokeWeight(1);
+    rect(0, 0, this.size, this.size);
     
     pop();
   }
