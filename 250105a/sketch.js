@@ -19,7 +19,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+  background(50);
   
   // Update and display all grid items
   gridItems.forEach(item => {
@@ -33,20 +33,23 @@ class GridItem {
     this.x = x;
     this.y = y;
     this.size = size;
-    this.squareSize = this.size * 0.25; // 50% of quadrant size
+    this.squareSize = this.size * 0.4; // 80% of quadrant size
     this.rotation = 0;
     this.targetRotation = 0;
     this.isRotating = false;
     this.rotationDirection = random() < 0.5 ? 1 : -1;
     this.rotationStartTime = 0;
     this.rotationDuration = 1000; // 1 second
-    
-    // Randomly decide if this square will rotate (5% chance)
-    this.shouldRotate = random() < 0.05;
+    this.shouldRotate = false;
   }
   
   update() {
-    if (this.shouldRotate && !this.isRotating && frameCount % 60 === 0) {
+    // Every second, reset rotation flags for all items
+    if (frameCount % 60 === 0) {
+      this.shouldRotate = random() < 0.05; // 5% chance each second
+    }
+    
+    if (this.shouldRotate && !this.isRotating) {
       this.startRotation();
     }
     
@@ -105,12 +108,6 @@ class GridItem {
     // Bottom-right
     fill(colors[3]);
     rect(this.size/4, this.size/4, this.squareSize, this.squareSize);
-    
-    // Debug: Draw cell border
-    noFill();
-    stroke(200);
-    strokeWeight(1);
-    rect(0, 0, this.size, this.size);
     
     pop();
   }
