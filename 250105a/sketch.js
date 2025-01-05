@@ -2,6 +2,7 @@ let gridItems = [];
 const colors = ['#e6302b', '#fd7800', '#fbd400', '#1b98e0'];
 const gridSize = 10;
 let rotationInterval = 1000; // Time between rotation checks in milliseconds
+let rotationPercentage = 5; // Percentage of items to rotate
 
 function setup() {
   createCanvas(900, 900);
@@ -30,6 +31,14 @@ function draw() {
     rotationInterval = min(2000, rotationInterval + 50); // Slow down, maximum 2000ms
   }
   
+  // Update rotation percentage based on keyboard input
+  if (keyIsDown(LEFT_ARROW)) {
+    rotationPercentage = max(1, rotationPercentage - 1); // Minimum 1%
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    rotationPercentage = min(20, rotationPercentage + 1); // Maximum 20%
+  }
+  
   // Update and display all grid items
   gridItems.forEach(item => {
     item.update();
@@ -55,7 +64,7 @@ class GridItem {
   update() {
     // Check for rotation based on the interval
     if (frameCount % Math.floor(rotationInterval / (1000/60)) === 0) {
-      this.shouldRotate = random() < 0.05; // 5% chance each interval
+      this.shouldRotate = random() < (rotationPercentage / 100); // Configurable percentage chance
     }
     
     if (this.shouldRotate && !this.isRotating) {
