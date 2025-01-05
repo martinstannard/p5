@@ -44,6 +44,14 @@ function draw() {
     item.update();
     item.display();
   });
+  
+  // Display overlay text
+  fill(255);
+  noStroke();
+  textSize(16);
+  textAlign(LEFT, TOP);
+  text(`Rotation Interval: ${rotationInterval}ms`, 10, 10);
+  text(`Rotation Percentage: ${rotationPercentage}%`, 10, 30);
 }
 
 class GridItem {
