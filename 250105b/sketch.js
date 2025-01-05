@@ -56,6 +56,9 @@ function initializeSimulation() {
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     particles.push(new Particle());
   }
+  // Add a display-only control for number of types
+  opc.set('NUM_TYPES', TYPES.length);
+  
   console.log(`New simulation parameters:
     Particles: ${PARTICLE_COUNT}
     Force (G): ${G.toFixed(2)}
@@ -124,7 +127,8 @@ function setup() {
   createCanvas(800, 800);
   
   // Setup OPC controls
-  opc.addSlider('PARTICLE_COUNT', 100, 500);
+  opc.addSlider('NUM_TYPES', MIN_TYPES, MAX_TYPES, MIN_TYPES).controls['NUM_TYPES'].disabled = true;
+  opc.addSlider('PARTICLE_COUNT', 100, 1000);
   opc.addSlider('G', 2, 20);
   opc.addSlider('FRICTION', 0.2, 1.0);
   opc.addSlider('MIN_R', 2, 40);
