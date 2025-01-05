@@ -121,11 +121,11 @@ function setup() {
   createCanvas(800, 800);
   
   // Setup OPC controls
-  opc.number('PARTICLE_COUNT').range(100, 500).step(10);
-  opc.number('G').range(5, 15).step(0.1);
-  opc.number('FRICTION').range(0.8, 0.95).step(0.01);
-  opc.number('MIN_R').range(5, 15).step(0.5);
-  opc.number('MAX_R').range(40, 60).step(1);
+  opc.slider('PARTICLE_COUNT', 100, 500, 10);
+  opc.slider('G', 5, 15, 0.1);
+  opc.slider('FRICTION', 0.8, 0.95, 0.01);
+  opc.slider('MIN_R', 5, 15, 0.5);
+  opc.slider('MAX_R', 40, 60, 1);
   
   generateTypes();
   initializeSimulation();
