@@ -219,7 +219,8 @@ function setup() {
 
 function keyPressed() {
   if (key === ' ') {
-    generateTypes();
+    TYPES = []; // Clear existing types
+    generateTypes(); // Generate new types with new colors
     rules = generateRules();
     initializeSimulation();
   } else if (key === 'c' || key === 'C') {
