@@ -216,11 +216,11 @@ function setup() {
   
   // Setup OPC controls
   opc.addSlider('NUM_TYPES', MIN_TYPES, MAX_TYPES, MIN_TYPES).controls['NUM_TYPES'].disabled = true;
-  opc.addSlider('PARTICLE_COUNT', 100, 1000);
+  opc.addSlider('PARTICLE_COUNT', 100, 2500);
   opc.addSlider('G', 2, 20);
   opc.addSlider('FRICTION', 0.2, 1.0);
   opc.addSlider('MIN_R', 2, 40);
-  opc.addSlider('MAX_R', 40, 100);
+  opc.addSlider('MAX_R', 20, 100);
   
   generateTypes();
   initializeSimulation();
