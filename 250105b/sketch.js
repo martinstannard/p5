@@ -1,15 +1,23 @@
-const PARTICLE_COUNT = 400;
 const MIN_TYPES = 3;
 const MAX_TYPES = 8;
 let TYPES = [];
-const particles = [];
-const G = 10; // Force multiplier
-const FRICTION = 0.85;
-const MIN_R = 10; // Minimum interaction radius
-const MAX_R = 50; // Maximum interaction radius
+let particles = [];
 
-// Attraction/repulsion matrix
+// These will be randomized on each restart
+let PARTICLE_COUNT;
+let G;           // Force multiplier
+let FRICTION;
+let MIN_R;       // Minimum interaction radius
+let MAX_R;       // Maximum interaction radius
 let rules;
+
+function randomizeParameters() {
+  PARTICLE_COUNT = floor(random(100, 501));
+  G = random(5, 15);
+  FRICTION = random(0.8, 0.95);
+  MIN_R = random(5, 15);
+  MAX_R = random(40, 60);
+}
 
 function generateRandomColor() {
   return color(random(255), random(255), random(255));
@@ -36,11 +44,19 @@ function generateRules() {
 }
 
 function initializeSimulation() {
+  randomizeParameters();
   rules = generateRules();
-  particles.length = 0; // Clear existing particles
+  particles = []; // Create new array instead of clearing
   for (let i = 0; i < PARTICLE_COUNT; i++) {
     particles.push(new Particle());
   }
+  console.log(`New simulation parameters:
+    Particles: ${PARTICLE_COUNT}
+    Force (G): ${G.toFixed(2)}
+    Friction: ${FRICTION.toFixed(3)}
+    Min radius: ${MIN_R.toFixed(1)}
+    Max radius: ${MAX_R.toFixed(1)}
+    Types: ${TYPES.length}`);
 }
 
 class Particle {
