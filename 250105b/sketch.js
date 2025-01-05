@@ -11,8 +11,11 @@ let MIN_R = 10;       // Minimum interaction radius
 let MAX_R = 50;       // Maximum interaction radius
 let rules;
 
-// Initialize OPC
-const opc = new OPC(this);
+let opc;
+
+function preload() {
+  opc = new OPC();
+}
 
 function randomizeParameters() {
   opc.set('PARTICLE_COUNT', floor(random(100, 501)));
@@ -121,11 +124,11 @@ function setup() {
   createCanvas(800, 800);
   
   // Setup OPC controls
-  opc.slider('PARTICLE_COUNT', 100, 500, 10);
-  opc.slider('G', 5, 15, 0.1);
-  opc.slider('FRICTION', 0.8, 0.95, 0.01);
-  opc.slider('MIN_R', 5, 15, 0.5);
-  opc.slider('MAX_R', 40, 60, 1);
+  opc.addSlider('PARTICLE_COUNT', 100, 500);
+  opc.addSlider('G', 5, 15);
+  opc.addSlider('FRICTION', 0.8, 0.95);
+  opc.addSlider('MIN_R', 5, 15);
+  opc.addSlider('MAX_R', 40, 60);
   
   generateTypes();
   initializeSimulation();
