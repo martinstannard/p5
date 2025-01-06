@@ -129,7 +129,8 @@ function generateRules() {
       } else {
         // Generate one random value and use it for both positions
         let value = random(-1, 1);
-        newRules[i][j] = newRules[j][i] = value;
+        newRules[i][j] = value;
+        newRules[j][i] = -1.0 * value;
       }
     }
   }
