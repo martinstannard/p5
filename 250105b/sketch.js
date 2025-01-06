@@ -131,7 +131,7 @@ function generateRules() {
         // Generate one random value and use it for both positions
         let value = random(-1, 1);
         newRules[i][j] = value;
-        newRules[j][i] = -1.0 * value;
+        newRules[j][i] = value;
       }
     }
   }
