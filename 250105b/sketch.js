@@ -12,6 +12,7 @@ let MAX_R = 50;       // Maximum interaction radius
 let rules;
 
 let opc;
+let fps;
 
 function preload() {
   opc = new OPC();
@@ -357,4 +358,12 @@ function draw() {
     p.update();
     p.draw();
   }
+  
+  // Display FPS
+  fps = frameRate();
+  fill(255);
+  noStroke();
+  textAlign(LEFT, TOP);
+  textSize(16);
+  text(`FPS: ${fps.toFixed(1)}`, 10, 10);
 }
