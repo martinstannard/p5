@@ -114,19 +114,26 @@ function generateTypes() {
 
 function generateRules() {
   let newRules = [];
+  // Initialize the array
   for (let i = 0; i < TYPES.length; i++) {
-    newRules[i] = [];
-    for (let j = 0; j < TYPES.length; j++) {
-      // Chance for rule to be zero
-      if (random() < opc.get('ZERO_CHANCE') || i === j) {
-        newRules[i][j] = 0;
+    newRules[i] = new Array(TYPES.length).fill(0);
+  }
+  
+  // Generate symmetric rules
+  for (let i = 0; i < TYPES.length; i++) {
+    for (let j = i; j < TYPES.length; j++) {
+      if (i === j) {
+        newRules[i][j] = 0; // Self-interaction is always 0
+      } else if (random() < opc.get('ZERO_CHANCE')) {
+        newRules[i][j] = newRules[j][i] = 0;
       } else {
-        // Generate random values between -1 and 1
-        newRules[i][j] = random(-1, 1);
+        // Generate one random value and use it for both positions
+        let value = random(-1, 1);
+        newRules[i][j] = newRules[j][i] = value;
       }
     }
   }
-  console.log('New rules matrix generated:', newRules);
+  console.log('New symmetric rules matrix generated:', newRules);
   return newRules;
 }
 
