@@ -10,17 +10,17 @@ class Tank {
     this.color = isPlayer ? color(0, 255, 0) : color(255, 0, 0);
     this.lastShot = 0;
     this.shotCooldown = 500; // milliseconds
-    this.speed = 3;
-    this.turnSpeed = 0.05;
+    this.speed = 2.5;
+    this.turnSpeed = 0.08;
   }
 
   update() {
     // Update position
     this.pos.add(this.vel);
     
-    // Keep tank in bounds
-    this.pos.x = constrain(this.pos.x, 0, width);
-    this.pos.y = constrain(this.pos.y, 0, height);
+    // Wrap around edges
+    this.pos.x = (this.pos.x + width) % width;
+    this.pos.y = (this.pos.y + height) % height;
     
     // Update bullets
     for (let i = this.bullets.length - 1; i >= 0; i--) {
@@ -87,11 +87,12 @@ class Bullet {
   }
 
   isOffscreen() {
+    // Bullets don't wrap, they disappear offscreen
     return (
-      this.pos.x < 0 ||
-      this.pos.x > width ||
-      this.pos.y < 0 ||
-      this.pos.y > height
+      this.pos.x < -10 ||
+      this.pos.x > width + 10 ||
+      this.pos.y < -10 ||
+      this.pos.y > height + 10
     );
   }
 }
