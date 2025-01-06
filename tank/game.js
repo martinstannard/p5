@@ -10,8 +10,8 @@ class Tank {
     this.color = isPlayer ? color(0, 255, 0) : color(255, 0, 0);
     this.lastShot = 0;
     this.shotCooldown = 500; // milliseconds
-    this.speed = 2.5;
-    this.turnSpeed = 0.08;
+    this.speed = 1.25;
+    this.turnSpeed = 0.04;
   }
 
   update() {
@@ -53,7 +53,7 @@ class Tank {
 
   shoot() {
     if (millis() - this.lastShot > this.shotCooldown) {
-      const bulletSpeed = 7;
+      const bulletSpeed = 3.5;
       const bulletVel = p5.Vector.fromAngle(this.heading).mult(bulletSpeed);
       const bulletPos = p5.Vector.add(this.pos, p5.Vector.fromAngle(this.heading).mult(this.size));
       this.bullets.push(new Bullet(bulletPos.x, bulletPos.y, bulletVel.x, bulletVel.y));
@@ -110,12 +110,18 @@ class Building {
     rect(this.pos.x, this.pos.y, this.w, this.h);
   }
 
-  collidesWith(tank) {
+  collidesWith(obj) {
+    // For tanks and bullets
+    const objLeft = obj.pos.x - obj.size/2;
+    const objRight = obj.pos.x + obj.size/2;
+    const objTop = obj.pos.y - obj.size/2;
+    const objBottom = obj.pos.y + obj.size/2;
+    
     return (
-      tank.pos.x + tank.size/2 > this.pos.x &&
-      tank.pos.x - tank.size/2 < this.pos.x + this.w &&
-      tank.pos.y + tank.size/2 > this.pos.y &&
-      tank.pos.y - tank.size/2 < this.pos.y + this.h
+      objRight > this.pos.x &&
+      objLeft < this.pos.x + this.w &&
+      objBottom > this.pos.y &&
+      objTop < this.pos.y + this.h
     );
   }
 }

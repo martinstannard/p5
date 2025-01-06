@@ -105,13 +105,32 @@ function updateEnemy(enemy) {
 function checkCollisions() {
   // Check building collisions
   buildings.forEach(building => {
+    // Check player collision
     if (building.collidesWith(player)) {
-      player.vel.mult(-1);
+      player.pos.sub(player.vel); // Revert position
+      player.vel.mult(0); // Stop movement
     }
+    
+    // Check enemy collisions
     enemies.forEach(enemy => {
       if (building.collidesWith(enemy)) {
-        enemy.vel.mult(-1);
+        enemy.pos.sub(enemy.vel); // Revert position
+        enemy.vel.mult(0); // Stop movement
       }
+    });
+    
+    // Check bullet collisions
+    player.bullets.forEach((bullet, i) => {
+      if (building.collidesWith(bullet)) {
+        player.bullets.splice(i, 1);
+      }
+    });
+    enemies.forEach(enemy => {
+      enemy.bullets.forEach((bullet, i) => {
+        if (building.collidesWith(bullet)) {
+          enemy.bullets.splice(i, 1);
+        }
+      });
     });
   });
   
@@ -131,6 +150,11 @@ function checkCollisions() {
     enemy.bullets.forEach((bullet, bulletIndex) => {
       if (dist(bullet.pos.x, bullet.pos.y, player.pos.x, player.pos.y) < player.size) {
         player.reset();
+        // Randomize enemy positions when player is hit
+        enemies.forEach(enemy => {
+          enemy.pos = createVector(random(width), random(height));
+          enemy.vel.mult(0);
+        });
         enemy.bullets.splice(bulletIndex, 1);
       }
     });
