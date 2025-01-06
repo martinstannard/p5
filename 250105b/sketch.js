@@ -262,7 +262,8 @@ class Particle {
           force = -1;
         } else {
           // Attraction/repulsion based on rules matrix
-          force = rules[this.typeIndex][other.typeIndex];
+          // Apply base force from rules plus bias
+          force = rules[this.typeIndex][other.typeIndex] + opc.get('BIAS');
           force *= (1 - d/MAX_R); // Force decreases with distance
         }
         
@@ -301,6 +302,7 @@ function setup() {
   opc.addSlider('NUM_TYPES', MIN_TYPES, MAX_TYPES, MIN_TYPES).controls['NUM_TYPES'].disabled = true;
   opc.addSlider('PARTICLE_COUNT', 100, 2500);
   opc.addSlider('G', 2, 20);
+  opc.addSlider('BIAS', -1, 1, 0);
   opc.addSlider('FRICTION', 0.2, 1.0);
   opc.addSlider('MIN_R', 2, 40);
   opc.addSlider('MAX_R', 20, 100);
