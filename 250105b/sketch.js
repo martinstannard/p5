@@ -327,6 +327,15 @@ function keyPressed() {
     navigator.clipboard.writeText(url).then(() => {
       console.log('Shareable URL copied to clipboard!');
     });
+  } else if (key === 'r' || key === 'R') {
+    // Generate new rules with current parameters
+    rules = generateRules();
+    // Reset particle velocities
+    for (let p of particles) {
+      p.vx = 0;
+      p.vy = 0;
+    }
+    console.log('Rules regenerated with current parameters');
   }
 }
 
