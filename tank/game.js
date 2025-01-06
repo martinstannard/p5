@@ -62,7 +62,19 @@ class Tank {
   }
 
   reset() {
-    this.pos = createVector(random(width), random(height));
+    // Keep trying random positions until we find one not inside any building
+    let validPosition = false;
+    while (!validPosition) {
+      this.pos = createVector(random(width), random(height));
+      validPosition = true;
+      // Check against all buildings
+      for (let building of buildings) {
+        if (building.collidesWith(this)) {
+          validPosition = false;
+          break;
+        }
+      }
+    }
     this.vel = createVector(0, 0);
     this.health = 100;
     this.bullets = [];

@@ -10,9 +10,21 @@ function setup() {
   // Create player
   player = new Tank(width/2, height/2, true);
   
-  // Create enemies
+  // Create buildings first
+  for (let i = 0; i < NUM_BUILDINGS; i++) {
+    buildings.push(new Building(
+      random(width),
+      random(height),
+      random(30, 100),
+      random(30, 100)
+    ));
+  }
+  
+  // Create enemies in valid positions
   for (let i = 0; i < NUM_ENEMIES; i++) {
-    enemies.push(new Tank(random(width), random(height)));
+    let enemy = new Tank(0, 0);
+    enemy.reset(); // This will find a valid position
+    enemies.push(enemy);
   }
   
   // Create buildings
