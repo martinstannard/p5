@@ -118,7 +118,7 @@ function generateRules() {
     newRules[i] = [];
     for (let j = 0; j < TYPES.length; j++) {
       // Chance for rule to be zero
-      if (random() < opc.get('ZERO_CHANCE')) {
+      if (random() < opc.get('ZERO_CHANCE') || i === j) {
         newRules[i][j] = 0;
       } else {
         // Generate random values between -1 and 1
