@@ -7,8 +7,9 @@ const NUM_BUILDINGS = 10;
 function setup() {
   createCanvas(800, 600);
   
-  // Create player
-  player = new Tank(width/2, height/2, true);
+  // Create player in valid position
+  player = new Tank(0, 0, true);
+  player.reset();
   
   // Create buildings first
   for (let i = 0; i < NUM_BUILDINGS; i++) {
